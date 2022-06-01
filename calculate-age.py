@@ -10,4 +10,3 @@ current= int(input("current year: ")) #person can type the current year
 subtract= current - born 
 print(subtract) #displays answer
 
-if 
