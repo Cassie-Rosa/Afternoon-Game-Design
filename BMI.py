@@ -11,10 +11,10 @@ multiply1= height * height
 divide= multiply / multiply1
 print (divide) #the BMI in terminal 
 
-if (divide < 18.5):
+if (divide < 18.5 and divide == 18.5):
     print ("your underwight")
 
-if (divide > 25):
+if (divide > 25 and divide == 25):
     print ("your overweight")
 
 if (divide >18.6 and divide <24.9):#how do you do inbetween like healthy 18
