@@ -1,5 +1,8 @@
 #Cassie Rosa
 # integer and float work
+#how to find odd or even
+#how to find a mulitple of integer
+#how to find last digit
 
 #Write a code that find if the number input by the user is even or odd is the number is multiple of 3 or 5
 
@@ -23,5 +26,4 @@ if num % 3 == 0 and num % 5 ==0: #this checks if integer is both miltiple 5 and 
 
 print(num%10) #this finds last digit of a number 
 print(num%100)
-print(num%1000)
 
