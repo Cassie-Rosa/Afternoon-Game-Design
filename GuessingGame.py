@@ -5,6 +5,17 @@
 #   start
 #   input title
 #   input instructions 
+#   input 10 disney Princess into list
+#   dicision pick a random princess
+#   process give a hint for the chooses princess
+#   process let player guess answer
+#   dicision if guess correct input your correct 
+#   dicision if guess incorrect input your wrong 
+#           and input try again
+#   process let player guess again 
+#   dicision if guess correct input your correct 
+#   dicision if guess incorrect input your wrong 
+#           input game over 
 
 
 import os 
@@ -27,8 +38,8 @@ print()
 
 Disney=["Cinderella", "Belle", "Mulan", "Rapunzul", "Tiana","Arial","Snow white","Aurora","Jasmine", "Marida"] 
 
-for i in range (1): #this is a loop to repeat an action 10 times 
-    element=random.choice(Disney) #this will choose a random fruit 
+for i in range (1): #this is a loop to repeat an action 1 times 
+    element=random.choice(Disney) #this will choose a random princess
     #print(element)
 
 if element == "Cinderella": # this shows hint when a random word is selected 
@@ -61,13 +72,13 @@ if element == "Jasmine":
 if element == "Marida":
     print("Hint: she has a scottish accent")
 
-guess=input("Enter a Disney Princess: ") 
+guess=input("Enter a Disney Princess: ") # this makes so user can type answer in terminal 
 if guess == element:
-    print("WINNNNER! You did it") 
+    print("WINNNNER! You did it") # if guess is correct then this messge pops up 
 else:
-    print("LOOOOSSERRRR! Your were incorrect")
+    print("LOOOOSSERRRR! Your were incorrect") # if guess isnt answer then this messge pops up 
 
-if guess != element:
+if guess != element: #if not right they are able to try again by doing the same code above but under the if statement
     print("try again!")
 
     guess2=input("Enter a Disney Princess: ")
@@ -77,7 +88,7 @@ if guess != element:
      print("Not Again!! You Lost")
 
 # if print("WINNNNER! You did it"):
-#     input("play again? yes or no: ")
+#     input("play again? yes or no: ")   ----- I dont know how to make them be able to play again 
 
 
 
