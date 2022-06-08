@@ -30,7 +30,11 @@ Animals=["Mushu","Louis", "Stitch", "Pumba","Abu","Timon","Zazu","Sebastian", "F
 count = 0 # ----------------------------------------
 Game = True #----------------------------------
 
+name= input("what is your name? ")
+high=0 # finds the highest score
+cnt=0
 while Game:
+    os.system('cls')
     #for i in range (100):                             |
     for i in range (36): #makes > repeat 
         print(">", end ="")
@@ -53,7 +57,8 @@ while Game:
     
    
 
-    name= input("what is your name? ") # this will as them there name ------------
+    # this will as them there name ------------
+    
     print (name, end =", ") #-----------------------------------------
     answer= input("would you like to play The Disney Guessing Game? ") #-------------------------------
     answer=answer.lower() #----------------------------------------------
@@ -92,6 +97,68 @@ while Game:
         print("You choose Sidekick")
 
 
+    guess=input("Enter a Disney " + add + ": " ) # this makes so user can type answer in terminal 
+
+
+    if guess == element:
+        print("WINNNNER! You did it") # if guess is correct then this messge pops up 
+    else:
+        cnt+=1   #
+        print("LOOOOSSERRRR! Your were incorrect") # if guess isnt answer then this messge pops up 
+
+    if guess != element: #if not right they are able to try again by doing the same code above but under the if statement
+        print("try again!")
+
+        guess2=input("Enter a Disney "+ add + ": ")
+        if guess2 == element:
+            print("Finally! Your Correct")
+        else:
+            cnt+=1   
+            print("Not Again!! You Lost")
+            print(element, "was the answer")
+
+#------------------------------------
+
+    score=200-40*cnt
+    if score > high:   # find highest sce
+        high=score
+        
+        print(name+", your score is "+str(score))
+        input("Press enter ")
+    os.system('cls')
+
+    for i in range (25): #makes > repeat 
+        print(">", end ="")
+    print()
+
+    answer=input("Do yo want to play again? ")
+    if ('n' or 'N') in answer:
+        Game=False
+        print("Thank you for playing my game" )
+
+
+cnt=0
+print(name+", your high score is "+str(high))
+
+scrline=name+"\t"+str(score)+"\n " 
+myFile=open("gsco.txt", 'a')
+myFile.write(scrline)
+myFile.close()
+myFile=open("gsco.txt", 'r')
+stuff= myFile.readlines()
+myFile.close()
+for line in stuff:
+    print(line)
+
+    
+#     cnt=0 
+# print("your highest score is " + str(high))
+
+
+
+
+# if print("WINNNNER! You did it"):
+#     input("play again? yes or no: ")   ----- I dont know how to make them be able to play again 
 
 
 
@@ -127,41 +194,3 @@ while Game:
 
 # if element == "Marida":
 #     print("Hint: she has a scottish accent")
-
-
-
-
-
-    guess=input("Enter a Disney " + add + ": " ) # this makes so user can type answer in terminal 
-
-
-    if guess == element:
-        print("WINNNNER! You did it") # if guess is correct then this messge pops up 
-    else:
-        print("LOOOOSSERRRR! Your were incorrect") # if guess isnt answer then this messge pops up 
-
-    if guess != element: #if not right they are able to try again by doing the same code above but under the if statement
-        print("try again!")
-
-        guess2=input("Enter a Disney "+ add + ": ")
-        if guess2 == element:
-            print("Finally! Your Correct")
-        else:
-            print("Not Again!! You Lost")
-            print(element, "was the answer")
-
-#------------------------------------
-    for i in range (25): #makes > repeat 
-        print(">", end ="")
-    print()
-
-    answer= input ("do you wanna play again? ")
-    if ('n' or 'N') in answer: 
-        print("Thank you for playing!!") 
-        Game= False  
-
-# if print("WINNNNER! You did it"):
-#     input("play again? yes or no: ")   ----- I dont know how to make them be able to play again 
-
-
-

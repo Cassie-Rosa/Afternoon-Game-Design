@@ -16,8 +16,8 @@ date=datetime.datetime.now() #this is how to show the current date in the termin
 print(date)
 print(date.strftime("%m / %d / %y"))
 
-name="Cass"
-sce=200
+# name="Cass"
+# sce=200
 
 #create a line of string put into file 
 scrline=name+"\t"+str(sce)+"\t " +date.strftime("%m / %d / %y")+ "\n " #this creates and enter space in file 
@@ -28,8 +28,8 @@ myFile=open("scre.txt", 'w')
 myFile.write(scrline)
 myFile.close()
 #Create a new line 
-name="peter"
-sce=132
+# name="peter"
+# sce=132
 scrline=name+"\t"+str(sce)+"\t " +date.strftime("%m / %d / %y")+ "\t "
 #this append file ---add lines to file 
 myFile=open("scre.txt", 'a')

@@ -17,6 +17,7 @@ list3 = ["Apple", "Apricot", "Avocado", "Banana", "Blackberry", "Blueberry", "Ch
 count = 0
 Game = True
 theword = ""
+name = input("What is your name? ")
 
 def hint(): # allows us to reuse code in multiple spots
     global count
@@ -37,6 +38,7 @@ def hint(): # allows us to reuse code in multiple spots
         print("You are horrible at guessing, no more hints, go till you get it right")
 
 while Game:
+    os.system()
     print("|***************************************|")
     print("|         Guess The Animal!!!           |")
     print("|^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^|")
@@ -49,7 +51,7 @@ while Game:
     print("|***************************************|")
 
     theword=random.choice(list)
-    name = input("What is your name? ")
+    
     print(name, end = ", ")
     answer = input("would you like to play the game? ")
     answer = answer.lower()
