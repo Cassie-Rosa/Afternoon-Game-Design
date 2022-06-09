@@ -1,0 +1,10 @@
+                             Instructions 
+       --------------------------------------------------------------
+                    Choose what level you want to play 
+                           level 1 - 1-25
+                            level 2 - 1-50
+                            level 3 - 1-100
+                      Once choosen guess a random number 
+              You will get a "more or less" hint if you wrong
+                 guess the number in the least number of trys
+                               Good Luck!
