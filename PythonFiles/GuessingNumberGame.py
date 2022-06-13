@@ -10,6 +10,9 @@
 import os 
 os .system('cls')
 import random
+from datetime import datetime
+import os, datetime
+date=datetime.datetime.now()
 
 guess= 0
 thenumb=0
@@ -71,7 +74,12 @@ def selectnum(choice):  #is a function with a parameter
         # add= "1-100"----------------------------
         thenumb= random.randint(1, 100)
     if choice== 4:
-        scrline=name+"\t"+str(cnt)+"\n " 
+        
+        myFile=open("trysc.txt", 'r')
+        stuff= myFile.readlines()
+        myFile.close()
+        for line in stuff:
+            print(line)
     return thenumb
         #go to score board and exit 
 
@@ -133,8 +141,7 @@ while Game:
     # cnt=0 
 print("your highest score is " + str(high))
 
-
-scrline=name+"\t"+str(cnt)+"\n " 
+scrline=name+"\t"+str(cnt)+"\t " +date.strftime("%m / %d / %y")+ "\n "
 myFile=open("trysc.txt", 'a')
 myFile.write(scrline)
 myFile.close()

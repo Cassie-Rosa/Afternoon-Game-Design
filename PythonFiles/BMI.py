@@ -9,9 +9,9 @@ multiply= weight * 703
 height= int(input("your height in inches: ")) # how person puts their height in terminal 
 multiply1= height * height 
 divide= multiply / multiply1
-print (divide) #the BMI in terminal 
+print (divide) #the BMI in terminal  --- divide is your BMI result 
 
-if (divide < 18.5):
+if (divide < 18.5): # this will check if you number 
     print ("your underwight")
 
 if (divide > 25 ):
