@@ -9,10 +9,10 @@ win = pygame.display.set_mode((480,480))
 pygame.display.set_caption("First Game")
 
 #this imports the images and creates list to more easily get the image you want 
-walkRight = [pygame.image.load('R1.png'), pygame.image.load('R2.png'), pygame.image.load('R3.png'), pygame.image.load('R4.png'), pygame.image.load('R5.png'), pygame.image.load('R6.png'), pygame.image.load('R7.png'), pygame.image.load('R8.png'), pygame.image.load('R9.png')]
-walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.image.load('L3.png'), pygame.image.load('L4.png'), pygame.image.load('L5.png'), pygame.image.load('L6.png'), pygame.image.load('L7.png'), pygame.image.load('L8.png'), pygame.image.load('L9.png')]
-bg = pygame.image.load('bg.jpg')
-char = pygame.image.load('standing.png') 
+walkRight = [pygame.image.load('PygameFile\Moving IMages\R1.png'), pygame.image.load('PygameFile\Moving IMages\R2.png'), pygame.image.load('PygameFile\Moving IMages\R3.png'), pygame.image.load('PygameFile\Moving IMages\R4.png'), pygame.image.load('PygameFile\Moving IMages\R5.png'), pygame.image.load('PygameFile\Moving IMages\R6.png'), pygame.image.load('PygameFile\Moving IMages\R7.png'), pygame.image.load('PygameFile\Moving IMages\R8.png'), pygame.image.load('PygameFile\Moving IMages\R9.png')]
+walkLeft = [pygame.image.load('PygameFile\Moving IMages\L1.png'), pygame.image.load('PygameFile\Moving IMages\L2.png'), pygame.image.load('PygameFile\Moving IMages\L3.png'), pygame.image.load('PygameFile\Moving IMages\L4.png'), pygame.image.load('PygameFile\Moving IMages\L5.png'), pygame.image.load('PygameFile\Moving IMages\L6.png'), pygame.image.load('PygameFile\Moving IMages\L7.png'), pygame.image.load('PygameFile\Moving IMages\L8.png'), pygame.image.load('PygameFile\Moving IMages\L9.png')]
+bg = pygame.image.load('PygameFile\Moving IMages\\bg.jpg')
+char = pygame.image.load('PygameFile\Moving IMages\standing.png') 
 
 clock=pygame.time.Clock() #this helps frame rate 
 
@@ -38,10 +38,10 @@ def redrawGameWindow():
         walkCount=0
     if left :
         win.blit(walkLeft[walkCount//3],(x,y))
-        walkcount +=1
+        walkCount +=1
     elif right:
         win.blit(walkRight[walkCount//3],(x,y))
-        walkcount +=1
+        walkCount +=1
     else:
         win.blit(char,(x,y))
     

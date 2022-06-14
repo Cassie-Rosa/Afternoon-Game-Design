@@ -57,6 +57,7 @@ choice=0
 def selectnum(choice):  #is a function with a parameter
     global thenumb
     global scrline
+    global Game
     if choice == 0:
         myfile= open("Instr.txt","r") 
         stuff=myfile.readlines()
@@ -75,12 +76,21 @@ def selectnum(choice):  #is a function with a parameter
         thenumb= random.randint(1, 100)
     if choice== 4:
         
-        myFile=open("trysc.txt", 'r')
+        myFile=open("PythonFiles\\trysc.txt", 'r')
         stuff= myFile.readlines()
         myFile.close()
         for line in stuff:
             print(line)
+        input("press enter to continue")
+    if choice==5:
+        scrline=str(cnt)+"\t "+name +"\t" +date.strftime("%m / %d / %y")+ "\n "
+        myFile=open("PythonFiles\\trysc.txt", 'a')
+        myFile.write(scrline)
+        myFile.close()
+        print("Thank you for playing!" )
+        Game=False
     return thenumb
+
         #go to score board and exit 
 
 
@@ -99,7 +109,7 @@ while Game:
         #preventing error we use try and except
         try:
             choice=int(choice)
-            if choice>=0 and choice <5:
+            if choice>=0 and choice <6:
                 break
             else:
                 print("give me 0, 1, 2, 3, or 4")
@@ -113,7 +123,7 @@ while Game:
     #call function to select the word from the right list
     os.system('cls')
     check=True
-    while check and choice != 0 and choice != 4:
+    while check and choice != 0 and choice != 4 and choice!=5:
         guess=int(input("Enter your a number: "))
         print()
         if guess == thenumb:
@@ -125,28 +135,25 @@ while Game:
         
 
 
-    if choice != 0 and choice != 4:
-        if cnt > high:   # find highest sce
+    if choice != 0 and choice != 4 and choice!= 5:
+        if cnt < high:   # find highest sce
             high=cnt
         print(name+", your score is "+str(cnt))
         input("Press enter ")
         os.system('cls')
         print("<><><><><><><><><><><><>")
-        answer=input("Do yo want to play again? ")
-        if ('n' or 'N') in answer:
-            Game=False
-            print("Thank you for playing!" )
-            input("press enter to see your score")
+        
+        
+          
     
     # cnt=0 
-print("your highest score is " + str(high))
+# print("your highest score is " + str(high))
 
-scrline=name+"\t"+str(cnt)+"\t " +date.strftime("%m / %d / %y")+ "\n "
-myFile=open("trysc.txt", 'a')
-myFile.write(scrline)
-myFile.close()
-myFile=open("trysc.txt", 'r')
-stuff= myFile.readlines()
-myFile.close()
-for line in stuff:
-    print(line)
+
+
+
+# myFile=open("trysc.txt", 'r')
+# stuff= myFile.readlines()
+# myFile.close()
+# for line in stuff:
+#     print(line)
