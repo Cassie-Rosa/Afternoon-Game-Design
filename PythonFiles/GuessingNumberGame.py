@@ -44,7 +44,8 @@ def menu():
     print("|        Level 1------1      |")
     print("|        Level 2------2      |")
     print("|        Level 3------3      |")
-    print("|       Score & Exit--4      |")
+    print("|       Scoreboard----4      |")
+    print("|         Exit--------5      |")
 
     for i in range (30): #makes > repeat 
             print("^", end ="")
