@@ -1,3 +1,3 @@
-IN this game need to use 
-W A S D - move circle 
-arrow to move square
+In this game you need to use 
+W A S D ----  to move circle 
+arrow keys -- to move square
