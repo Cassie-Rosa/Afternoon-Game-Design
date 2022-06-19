@@ -177,18 +177,18 @@ def setting():
 
 
 
-    while True:
-        global run 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-                print("you quit")
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mousePos = pygame.mouse.get_pos()
-                mx = mousePos[0]
-                my = mousePos[1]
-                if Button_1.collidepoint(mx, my):
-                    return menu()
+    # while True:
+    #     global run 
+    #     for event in pygame.event.get():
+    #         if event.type == pygame.QUIT:
+    #             run = False
+    #             print("you quit")
+            # if event.type == pygame.MOUSEBUTTONDOWN:
+            #     mousePos = pygame.mouse.get_pos()
+            #     mx = mousePos[0]
+            #     my = mousePos[1]
+            #     if .collidepoint(mx, my):
+            #         return menu()
     #2 background options 
 
 
@@ -358,7 +358,7 @@ def game(charecter):
 
 
 #this is my call to the menu function which runs my whole game 
-# name =input("What is your name? ")
+name =input("What is your name? ")
 menu()
 
 
