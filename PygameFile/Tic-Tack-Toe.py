@@ -834,11 +834,11 @@ def game():
                     print(winner)
                     if gameOver: #blean
                         gameEnd()
-while Game:
-    game()
+
+game()
 
                 
                 
                 
-    pygame.display.update() 
-    pygame.time.delay(100)
+pygame.display.update() 
+pygame.time.delay(100)
