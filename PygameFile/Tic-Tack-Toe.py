@@ -695,11 +695,11 @@ def checkWinner():
 
     # add all ROWS if markers[0][]+markers[0][]+markers[0][]==3 Or markers[1][]+markers[1][]+markers[1][]==3 OR
     #winner =1
-    
+gameOver=False
 def gameEnd():
     global markers
     global Game
-    global X_score, O_score
+    global X_score, O_score,gameOver
     markers=[]
 
     print()
@@ -769,10 +769,11 @@ def gameEnd():
                 mx = mousePos[0]
                 my = mousePos[1]
                 if yes_b.collidepoint(mx, my):
+                    gameOver=False
                     game()
                     #make it loop game but still keep score 
                 if no_b.collidepoint(mx,my):
-                    Game=False
+            
                     finalScreen()
                     #add the final game winner 
             
@@ -785,13 +786,17 @@ def finalScreen():
     
 
     if X_score>O_score:
-         finalEnd = MENU_FONT.render("X", 1, colors.get("BLACK"))
-         screen.blit(finalEnd, (150, 550))
+         finalEnd = GAMEOVER_FONT.render("X", 1, colors.get("BLACK"))
+         screen.blit(finalEnd, (WIDTH//2 - (finalEnd.get_width()//2),150))
 
     if X_score<O_score:
-         finalEnd = MENU_FONT.render("O", 1, colors.get("BLACK"))
-         screen.blit(finalEnd, (150, 550))
-
+         finalEnd = GAMEOVER_FONT.render("O", 1, colors.get("BLACK"))
+         screen.blit(finalEnd, (WIDTH//2 - (finalEnd.get_width()//2),150))
+    
+    pygame.display.update()
+    pygame.time.delay(5000)
+    pygame.quit()
+    sys.exit()
 
 
 
@@ -810,30 +815,37 @@ def finalScreen():
         #chck if x or o won game in the end (like best in the end)   
 
 def game():
-    global player
-    zero_Array()
-    while Game:
-        screen.fill(backgrnd)
-        draw_grid()
-        draw_Markers()
-        for event in pygame.event.get():
-            if event.type==pygame.QUIT:
-                #Menu(mainTitle,messageMenu)
-                pygame.quit()
-                sys.exit()
-                print("You quit")
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                MxMy = pygame.mouse.get_pos()
-                cellx=MxMy[0]//(WIDTH//3)
-                celly=MxMy[1]//(HEIGHT//3)
-                # print(cellx, celly)
-                if markers[cellx][celly]==0:
-                    markers[cellx][celly]=player
-                    player *=-1
-                    checkWinner()
-                    print(winner)
-                    if gameOver: #blean
-                        gameEnd()
+    global player, gameOver, markers
+    while True:
+        Game=True
+        gameOver=False
+        markers=[]
+        zero_Array()
+        while Game:
+            screen.fill(backgrnd)
+            draw_grid()
+            draw_Markers()
+            for event in pygame.event.get():
+                if event.type==pygame.QUIT:
+                    #Menu(mainTitle,messageMenu)
+                    pygame.quit()
+                    sys.exit()
+                    print("You quit")
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    MxMy = pygame.mouse.get_pos()
+                    cellx=MxMy[0]//(WIDTH//3)
+                    celly=MxMy[1]//(HEIGHT//3)
+                    # print(cellx, celly)
+                    if markers[cellx][celly]==0:
+                        markers[cellx][celly]=player
+                        player *=-1
+                        checkWinner()
+                        print(winner)
+                        if gameOver: #blean
+                            Game=False
+                            gameEnd()
+                            
+                        
 
 game()
 
