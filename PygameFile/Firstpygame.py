@@ -844,6 +844,7 @@ def game(charecter):
     while run:
         # screen.fill(background)
         pygame.draw.rect(screen, colors.get("white"), mountainSquare)
+        
         screen.blit(bg, (0,0)) #****************need to make this universal so I can use for both person and another shape
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

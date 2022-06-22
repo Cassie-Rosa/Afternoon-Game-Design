@@ -721,6 +721,9 @@ def menu(): #this will be the main menu function that calls for all of the other
 
                 if scoreboard_button.collidepoint(mx, my):
                     readfile("Score Board","FinalGame\\finalScoreb.txt")
+
+                if game1_button.collidepoint(mx, my):
+                    game1("FinalGame\\artwork\girl-transp.png")
                     
 
 def readfile(title, fileName): #this will have both the instructions and the score board 
@@ -766,8 +769,21 @@ def exit(): #this will create and exit screen and append the new users score
     # myFile.write(scrline)
     # myFile.close()
 
-def game1(charecter):#this will play the game then input which charecter i will be using
-    print()
+def game1(background):#this will play the game then input which charecter i will be using
+    run = True
+
+    while run:
+        # screen.fill(background)
+        # pygame.draw.rect(screen, colors.get("white"), mountainSquare) use something like this to draw the hit points
+       
+        screen.blit(background, (0,0)) #****************need to make this universal so I can use for both person and another shape
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                menu()
+
+    #now need to make it so that all of the peices move back and forth with out stopping
+    #maybe can type same code just make the image and placement a varibale 
+
 
 
 

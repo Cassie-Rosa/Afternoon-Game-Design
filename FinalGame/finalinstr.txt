@@ -1,0 +1,7 @@
+                                         Hello player
+            In this game you will need to create the perfect face!
+                     you may choose which charcter you want
+          use the space bar to stop the moving parts of the face 
+                     try and get cloesest to the original image
+                                higher score the better!
+                play both games to unlock a secret charecter
