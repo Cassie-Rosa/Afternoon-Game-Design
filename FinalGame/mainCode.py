@@ -1,21 +1,24 @@
+# #cassie rosa
+# #this is my final game ---im doing a make the perfect face game 
+# #the requirements:
+# *** #clear instructions 
+#     # 2 or 3 options/levels of your game
+#     # Settings option: at least 2 options Background color, screen size if you have sounds you must have an option to turn it off
+#     # a leader board option
+#     # an exit option
+#     # You should use at least 5 different images in your game
+#     # You should have your code organized into functions and well documented (comments) 
+#     # You must use mouse events
+#     # You must use key events
+#     # Your screen should be at least 700 x 600
 
-# #Cassie Rosa
-# #learning basic pygame functions 
+# Your game will be graded as follow:
+    # PseudoCode 15%
+    # Creativity 20%
+    # Code organization 25%
+    # The final game should work and the window closes when you exit (40%)
 
-#We are going to be learning how to control objects using keys
-#We will also learn how to use images
-# K_UP                  up arrow
-# K_DOWN                down arrow
-# K_RIGHT               right arrow
-# K_LEFT                left arrow
-# K_w                   w key
-# K_a                   a key
-# K_s                   s key
-# K_d                   d key
-
-
-
-
+from dis import Instruction
 import sys
 from tkinter import W
 import pygame, os, random, math
@@ -623,151 +626,105 @@ clr = colors.get("white")
 
 #create a display
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("My First Game") # title of the window
+pygame.display.set_caption("Game Title") # title of the window
 
-#images
-bg = pygame.image.load("PygameFile\images1\\bgSmaller.jpg")
-char = pygame.image.load("PygameFile\images1\PixelArtTutorial.png")
-char = pygame.transform.scale(char, (50,50))
-
-char2=pygame.image.load ("PygameFile\Moving IMages\standing.png")
-char2=pygame.transform.scale(char, (50,50))
-
-
-#circle var
-
-background = colors.get("grey")
-cnt=0 
-
-
-
-
-#this menu function it will be used to connect all of the functions to the buttons on the screen very important 
-def menu():
+def name():#this will create the screen for the user to write there name 
     screen.fill(colors.get("white"))
-    menu = TITLE_FONT.render("Circle Eats Square", 1, colors.get("black"))
+    scoreb = TITLE_FONT.render("Enter your name", 1, colors.get("black"))
+    xd = WIDTH//2 - (scoreb.get_width()//2)
+    screen.blit(scoreb, (xd, 200))\
+    
+    run=True
+    user_name='' #creates a variable so you can input name *************
+    nameClr=colors.get("SPRING_GREEN_4") #for the text of the name
+    boxClr=colors.get("LIGHT_GREY") #for the text box
+
+    input_rect = pygame.Rect((WIDTH//2.75, HEIGHT//2), (180, 40))
+    while run:
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                #Menu(mainTitle,messageMenu)
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                print()
+            if event.type == pygame.KEYDOWN:
+                if event.key==pygame.K_RETURN:  
+                    print() #will go to menu 
+                if event.key==pygame.K_BACKSPACE: #this just makes backspace work
+                    user_name=user_name[:-1]
+                else:
+                    user_name+=event.unicode #dont understand this peice 
+            pygame.draw.rect(screen, boxClr, input_rect) 
+            
+            text_surface = MENU_FONT.render(user_name, True, nameClr)
+            #use your x,y
+            screen.blit(text_surface,(input_rect.x+5,input_rect.y+5))
+
+            pygame.display.flip() #what does flip do? 
+
+
+def menu(): #this will be the main menu function that calls for all of the other function
+    screen.fill(colors.get("white"))
+    menu = TITLE_FONT.render("Game title", 1, colors.get("black"))
     xd = WIDTH//2 - (menu.get_width()//2)
-    screen.blit(menu, (xd, 100))\
-    
-    global ByTop 
-    global ByBot
-    global Bx1
-    global Bx2
-    global Bx3
+    screen.blit(menu, (xd, 100))
 
-    ByTop=HEIGHT//3
-    ByBot=HEIGHT//2
-    Bx1=WIDTH//9
-    Bx2=Bx1*3.5
-    # WIDTH//2-65
-    Bx3=Bx2*1.73
-    inst_button = pygame.Rect(Bx1, ByTop, 150, 50)
-    setting_button = pygame.Rect(Bx2, ByTop, 150, 50)
-    game1_button=pygame.Rect(Bx3,ByTop,150,50)
-    game2_button=pygame.Rect(Bx1,ByBot,150,50)
-    sb_button=pygame.Rect(Bx2,ByBot,150,50)
-    exit_button=pygame.Rect(Bx3,ByBot,150,50)
+    inst_button = pygame.Rect(WIDTH//2.5,200, 150, 50)
+    setting_button = pygame.Rect(WIDTH//2.5,270, 150, 50)
+    game1_button = pygame.Rect(WIDTH//2.5,340, 150, 50)
+    game2_button = pygame.Rect(WIDTH//2.5,410, 150, 50)
+    scoreboard_button = pygame.Rect(WIDTH//2.5,480, 150, 50)
+    exit_button = pygame.Rect(WIDTH//2.5,550, 150, 50)
+    game3_button = pygame.Rect(WIDTH//2.5,620, 150, 50)
 
-    
-    pygame.draw.rect(screen, colors.get("red"), inst_button)
+    pygame.draw.rect(screen, colors.get("red"), inst_button) #im going to change colors to pastel 
     pygame.draw.rect(screen, colors.get("orange"), setting_button)
     pygame.draw.rect(screen, colors.get("yellow"), game1_button)
     pygame.draw.rect(screen, colors.get("green"), game2_button)
-    pygame.draw.rect(screen, colors.get("blue"), sb_button)
+    pygame.draw.rect(screen, colors.get("blue"), scoreboard_button)
     pygame.draw.rect(screen, colors.get("purple"), exit_button)
+    pygame.draw.rect(screen, colors.get("GREY"), game3_button) #this one i want to be grey until you play the other two
 
-    #render
-    text1 = MENU_FONT.render("Instructions", 1, colors.get("black"))
-    text2 = MENU_FONT.render("Settings", 1, colors.get("black"))
-    text3 = MENU_FONT.render("Game 1", 1, colors.get("black"))
-    text4= MENU_FONT.render("Game 2", 1, colors.get("black"))
-    text5 = MENU_FONT.render("Score Board", 1, colors.get("black"))
-    text6 = MENU_FONT.render("Exit", 1, colors.get("black"))
-   
-    screen.blit(text1, (120, HEIGHT//3+10)) #
-    screen.blit(text2, (320, HEIGHT//3+10))
-    screen.blit(text3, (520, HEIGHT//3+10))
-    screen.blit(text4, (120, HEIGHT//2+10))
-    screen.blit(text5, (320, HEIGHT//2+10))
-    screen.blit(text6, (520, HEIGHT//2+ 10)) 
+    text_inst = MENU_FONT.render("Instructions", 1, colors.get("black"))
+    text_set = MENU_FONT.render("Settings", 1, colors.get("black"))
+    text_g1 = MENU_FONT.render("Alex", 1, colors.get("black"))
+    text_g2 = MENU_FONT.render("Ryan", 1, colors.get("black"))
+    text_sc = MENU_FONT.render("Score Board", 1, colors.get("black"))
+    text_exit = MENU_FONT.render("Exit", 1, colors.get("black"))
+    text_mystery = MENU_FONT.render("MYSTERY", 1, colors.get("black"))
+
+    screen.blit(text_inst, (WIDTH//2.5+15, 210)) 
+    screen.blit(text_set, (WIDTH//2.5+15, 280)) 
+    screen.blit(text_g1, (WIDTH//2.5+15, 350)) 
+    screen.blit(text_g2, (WIDTH//2.5+15, 420)) 
+    screen.blit(text_sc,(WIDTH//2.5+15, 490)) 
+    screen.blit(text_exit, (WIDTH//2.5+15, 560)) 
+    screen.blit(text_mystery, (WIDTH//2.5+15, 630)) 
+    
+
     pygame.display.update()
-    
-    
+
     while True:
         # global Game
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                Game = False #this is not working 
-                print("you quit")
+            if event.type==pygame.QUIT:
+                pygame.quit()
+                sys.exit()  
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
                 mx = mousePos[0]
                 my = mousePos[1]
                 if inst_button.collidepoint(mx, my):
-                    readfile("Instruction","PygameFile\Inst2.txt")
-                    backB()
-                if exit_button.collidepoint(mx,my):
-                    exit()
-                    pygame.quit()   
-                    sys.quit()
-                if sb_button.collidepoint(mx,my):
-                    readfile("Score Board","PygameFile\FirstgameSB.txt")
-                    backB()
-                if setting_button.collidepoint(mx,my):
-                    setting()
-                    backB()
-                if game1_button.collidepoint(mx,my):
-                    game(char)
-                    backB()
-                if game2_button.collidepoint(mx,my):
-                    ticktack()
-                    backB()
-                   
+                    readfile("Instruction","FinalGame\\finalinstr.txt")
 
- 
+                if scoreboard_button.collidepoint(mx, my):
+                    readfile("Score Board","FinalGame\\finalScoreb.txt")
+                    
 
-# this will be the white background and use ADD to make easier so not repeate code 
+def readfile(title, fileName): #this will have both the instructions and the score board 
 
-#This is setting function that will give user option to change 
-def setting():
-    screen.fill(colors.get("white"))
-    settingT= TITLE_FONT.render("Settings", 1, colors.get("black"))
-    xd = WIDTH//2 - (settingT.get_width()//2)
-    screen.blit(settingT, (xd, 50)) 
-
-#this is button for choose the setting 
-    Button_ss = pygame.Rect(WIDTH//18, HEIGHT//18, 80, 50)
-    pygame.draw.rect(screen, colors.get("grey"), Button_ss)
-    text1 = MENU_FONT.render("Back", 1, colors.get("white"))
-    screen.blit(text1, (WIDTH//18+15, HEIGHT//18+10))
-    
-    pygame.display.update()
-
-
-
-    # while True:
-    #     global run 
-    #     for event in pygame.event.get():
-    #         if event.type == pygame.QUIT:
-    #             run = False
-    #             print("you quit")
-            # if event.type == pygame.MOUSEBUTTONDOWN:
-            #     mousePos = pygame.mouse.get_pos()
-            #     mx = mousePos[0]
-            #     my = mousePos[1]
-            #     if .collidepoint(mx, my):
-            #         return menu()
-    #2 background options 
-
-
-
-    
-    
-
-
-
-#This is both the scoreboard and the instruction pages able to use same function ****DONE
-def readfile (title, fileName):
     screen.fill(colors.get("white"))
     scoreb = TITLE_FONT.render(title, 1, colors.get("black"))
     xd = WIDTH//2 - (scoreb.get_width()//2)
@@ -784,184 +741,15 @@ def readfile (title, fileName):
         pygame.display.update()
         pygame.time.delay(50)
         yi += 40
-    
-    
-    
-
-#This is a back button function so that I can call for it in all of the screens other than exit  *****DONE
-def backB():
-    Button_1 = pygame.Rect(WIDTH//18, HEIGHT//18, 80, 50)
-    pygame.draw.rect(screen, colors.get("grey"), Button_1)
-    text1 = MENU_FONT.render("Back", 1, colors.get("white"))
-    screen.blit(text1, (WIDTH//18+15, HEIGHT//18+10))
-    pygame.display.update()
-
-
 
     while True:
-        global run 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-                print("you quit")
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mousePos = pygame.mouse.get_pos()
-                mx = mousePos[0]
-                my = mousePos[1]
-                if Button_1.collidepoint(mx, my):
-                    return menu()
-                
-#functions
-# menu()
-
-
-#main Game
-def game(charecter):
-    cnt=0
-    run=True
-    cx = 350
-    cy = 350
-    rad = 25
-    #square var
-    hb = 50
-    wb = 50
-    xb = 325
-    yb = 325
-    square = pygame.Rect(xb,yb,wb,hb) #create the object to draw
-    #char var
-    charx = xb
-    chary = yb
-    #inscribed square
-    ibox = rad*math.sqrt(2)
-    xig = cx-(ibox/2)
-    yig = cy-(ibox/2)
-    insSquare=pygame.Rect(xig,yig,ibox,ibox)
-    #bounce
-    mountainSquare = pygame.Rect(250, 320, 180, 250)
-    #Game Code
-    speed = 2
-
-    while run:
-        # screen.fill(background)
-        pygame.draw.rect(screen, colors.get("white"), mountainSquare)
-        screen.blit(bg, (0,0)) #****************need to make this universal so I can use for both person and another shape
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-                print("you quit")
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mousePos = pygame.mouse.get_pos()
-                # print(mousePos)
-        keys = pygame.key.get_pressed() #allow us to see what key was pressed
-
-        
-
-        #square movement
-        if keys[pygame.K_d] and square.x < WIDTH-wb:
-            square.x += speed
-            charx += speed
-        if keys[pygame.K_a] and square.x > 0:
-            square.x -= speed
-            charx -= speed
-        if keys[pygame.K_s] and square.y < HEIGHT-hb:
-            square.y += speed
-            chary += speed
-        if keys[pygame.K_w] and square.y > 0:
-            square.y -= speed
-            chary -= speed
-
-        #circle and inscribed square movement
-        if keys[pygame.K_RIGHT] and cx < WIDTH-rad:
-            cx += speed
-            insSquare.x += speed
-        if keys[pygame.K_LEFT] and cx > 0+rad:
-            cx -= speed
-            insSquare.x -= speed
-        if keys[pygame.K_DOWN] and cy < HEIGHT-rad:
-            cy += speed
-            insSquare.y += speed
-        if keys[pygame.K_UP] and cy > 0+rad:
-            cy -= speed
-            insSquare.y -= speed
-        
-        #circle square collide
-        if square.colliderect(insSquare): 
-            print("BOOM")
-            cx = random.randint(rad, WIDTH-rad)
-            cy = random.randint(rad, HEIGHT-rad)
-            rad += 5
-            ibox = rad*math.sqrt(2)
-            xig = cx-(ibox/2)
-            yig = cy-(ibox/2)
-            insSquare=pygame.Rect(xig,yig,ibox,ibox)
-            cnt +=1 
-        
-        #mountain collide square
-        if square.colliderect(mountainSquare):
-            square.x = 10
-            square.y = 10
-            charx = 10
-            chary = 10
-            cnt -=1
-        
-        #mountain collide circle
-        if insSquare.colliderect(mountainSquare):
-            cx = rad + 10
-            cy = rad + 10
-            ibox = rad*math.sqrt(2)
-            xig = cx-(ibox/2)
-            yig = cy-(ibox/2)
-            insSquare=pygame.Rect(xig,yig,ibox,ibox)
-
-        #rect(surface, color, object)
-        pygame.draw.rect(screen, colors.get("blue"), square)
-        pygame.draw.rect(screen, colors.get("blue"), insSquare)
-        screen.blit(charecter, (charx, chary))
-
-        #circle(surface, color, center, radius)
-        pygame.draw.circle(screen, colors.get("red"), (cx, cy), rad)
-        
-        pygame.display.update()
-        pygame.time.delay(5)
-
-def name():
-    screen.fill(colors.get("white"))
-    scoreb = TITLE_FONT.render("Enter your name", 1, colors.get("black"))
-    xd = WIDTH//2 - (scoreb.get_width()//2)
-    screen.blit(scoreb, (xd, 200))\
-    
-    run=True
-    user_name='' #creates a variable so you can input name *************
-    nameClr=colors.get("FUCHSIA") #for the text of the name
-    boxClr=colors.get("LIGHT_GREY") #for the text box
-
-    input_rect = pygame.Rect((WIDTH//2.75, HEIGHT//2), (180, 40))
-    while run:
-        pygame.display.update()
+        # global Game
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
-                #Menu(mainTitle,messageMenu)
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                print()
-            if event.type == pygame.KEYDOWN:
-                if event.key==pygame.K_RETURN:  
-                    menu()
-                if event.key==pygame.K_BACKSPACE: #this just makes backspace work
-                    user_name=user_name[:-1]
-                else:
-                    user_name+=event.unicode #dont understand this peice 
-            pygame.draw.rect(screen, boxClr, input_rect) 
-            
-            text_surface = MENU_FONT.render(user_name, True, nameClr)
-            #use your x,y
-            screen.blit(text_surface,(input_rect.x+5,input_rect.y+5))
+                menu()  
 
-            pygame.display.flip() #what does flip do? 
 
-# thisvis exit function this will pop up a a thank you screen and end game               
-def exit():
+def exit(): #this will create and exit screen and append the new users score
     user_name= ''
     #This is where make a exit screen "thanks for playing"
     screen.fill(colors.get("white"))
@@ -972,245 +760,14 @@ def exit():
     pygame.display.update()
     pygame.time.delay(1000)
 
-    scrline=str(cnt)+"\t "+ user_name +"\t" +date.strftime("%m / %d / %y")+ "\n "
-    myFile=open("PygameFile\FirstgameSB.txt", 'a')
-    myFile.write(scrline)
-    myFile.close()
+#need to create a scoreing system 
+    # scrline=str(cnt)+"\t "+ user_name +"\t" +date.strftime("%m / %d / %y")+ "\n "
+    # myFile=open("FinalGame\\finalScoreb.txt", 'a')
+    # myFile.write(scrline)
+    # myFile.close()
 
-
-
-
-
-#this is the ticktack game   
-    # Game=False
-GAMEOVER_FONT=pygame.font.SysFont('comicsans', 80)
-backgrnd=colors.get("pink")
-#game Variable
-player=1 #control player i is x and -1 is o
-markers=[] #array to controlthe plays
-lineWidth=10 #line thinckness
-Game=True #Control main game 
-MxMy=(0,0)  # Checks click 
-gameOver=False #to check gme is over 
-winner=0 #who won the game 1, -1, 0 =tie 
-X_score=0
-O_score=0
-
-print(markers)  
-cirClr=colors.get("blue") #color o
-xClr=colors.get("BLACK") #color x
-
-#to set array to zero
-def zero_Array(): 
-    for x in range(3):
-        row= [0] *3
-        markers.append(row)
-
-#makes the grid on the screen
-def draw_grid():
-    lineClr=colors.get("white")
-    for x in range(1,3):
-        pygame.draw.line(screen,lineClr,(0,HEIGHT//3*x),(WIDTH,HEIGHT//3*x),lineWidth)  #Hztal line
-        pygame.draw.line(screen,lineClr,(WIDTH//3*x, 0),(WIDTH//3*x,HEIGHT),lineWidth)  #Vert line
-    pygame.time.delay(100)
-
-#This draws the markers in the designiated area 
-def draw_Markers():
-    xValue=0
-    for x in markers:   # getting a rw
-        yValue=0
-        for y in x:  #each elem fthe rw
-            if y ==1:
-                # print ("x")
-                pygame.draw.line(screen,xClr,(xValue * WIDTH//3 + 15, yValue * HEIGHT//3 + 15), (xValue * WIDTH//3 + WIDTH//3-15, yValue * WIDTH//3 + WIDTH//3-15),lineWidth)
-                pygame.draw.line(screen, xClr,(xValue*WIDTH//3 +WIDTH//3-15, yValue*HEIGHT//3+15),(xValue *WIDTH//3+15,yValue*HEIGHT//3+HEIGHT//3-15),lineWidth)
-            if y==-1:
-                # print("O")
-                pygame.draw.circle(screen,cirClr,(xValue*WIDTH//3+WIDTH//6,yValue*HEIGHT//3 +HEIGHT//6),WIDTH//6-15, lineWidth)
-            yValue +=1
-        xValue +=1
-    pygame.display.update() 
-def checkWinner():
-    global gameOver, winner
-    x_pos=0
-    for ROW in markers:
-        #check colums
-        if sum(ROW)==3:
-            winner=1
-            gameOver=True
-        if sum(ROW)==-3:
-            winner=-1
-            gameOver=True
-        #check rows
-        if markers[0][x_pos] + markers[1][x_pos]+ markers[2][x_pos]==3:
-            winner=1
-            gameOver=True
-        if markers[0][x_pos] + markers[1][x_pos]+ markers[2][x_pos]==-3:
-            winner=-1
-            gameOver=True
-        x_pos +=1
-    if markers[0][0]+markers[1][1]+markers[2][2]==3 or markers[2][0]+markers[1][1]+markers[0][2]==3:
-        winner=1
-        gameOver=True
-    if markers[0][0]+markers[1][1]+markers[2][2]==-3 or markers[2][0]+markers[1][1]+markers[0][2]==-3:
-        winner=-1
-        gameOver=True
-    #this chacks if tie game 
-    if gameOver==False:
-        tie=True
-        for ROW in markers:
-            for COL in ROW:
-                if COL ==0:
-                    tie= False
-        if tie:
-            gameOver=True
-            winner=0
-
-    # add all ROWS if markers[0][]+markers[0][]+markers[0][]==3 Or markers[1][]+markers[1][]+markers[1][]==3 OR
-    #winner =1
-gameOver=False
-def gameEnd():
-    global markers
-    global Game
-    global X_score, O_score,gameOver
-    markers=[]
-
+def game1(charecter):#this will play the game then input which charecter i will be using
     print()
-    zero_Array()
-
-    screen.fill(colors.get("white"))
-    gameoversc = TITLE_FONT.render("GAME OVER", 1, colors.get("BLACK"))
-    xd = WIDTH//2 - (gameoversc.get_width()//2)
-    screen.blit(gameoversc, (xd, 100))\
-
-    if winner ==1:
-        text=GAMEOVER_FONT.render("X", 1 ,xClr)
-        X_score +=1
-
-    if winner ==-1:
-        text=GAMEOVER_FONT.render("O",1, cirClr )
-        O_score+=1
-    
-    if winner ==0:
-        text=GAMEOVER_FONT.render("TIE",1, cirClr )
-        X_score+=1
-        O_score+=1
-
-    yes_b = pygame.Rect(100, 550, 150, 50)
-    no_b = pygame.Rect(450, 550, 150, 50)
-    x_endscore= pygame.Rect(60,300,100,50)
-    o_endscore= pygame.Rect(530,300,100,50)
-
-    pygame.draw.rect(screen, colors.get("SPRING_GREEN_3"), yes_b)
-    pygame.draw.rect(screen, colors.get("RED"), no_b)
-    pygame.draw.rect(screen, colors.get("LIGHT_GREY"), x_endscore)
-    pygame.draw.rect(screen, colors.get("LIGHT_GREY"), o_endscore)
-    
-
-    text_main = MENU_FONT.render("Do you want to play again?", 1, colors.get("BLACK"))
-    text1 = MENU_FONT.render("YES", 1, colors.get("BLACK"))
-    text2 = MENU_FONT.render("NO", 1, colors.get("BLACK"))
-    text3 = MENU_FONT.render("X", 1, colors.get("BLACK"))
-    text4 = MENU_FONT.render("O", 1, colors.get("BLACK"))
-
-    text_Xsc = MENU_FONT.render(str(X_score), 1, colors.get("BLACK"))
-    text_Osc = MENU_FONT.render(str(O_score), 1, colors.get("BLACK"))
-    
-
-    screen.blit(text1, (150, 550))
-    screen.blit(text2, (500, 550)) #need to fix sizing 
-    screen.blit(text_main, (250, 500))
-    screen.blit(text_Xsc, (105, 350))
-    screen.blit(text_Osc, (575, 350))
-    screen.blit(text, (WIDTH//2.5, HEIGHT//3))
-    screen.blit(text3,(100, 310))
-    screen.blit(text4, (570, 310))
-
-    pygame.display.update()
-    
-
-
-
-    while True:
-        # global Game
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                Game = False
-                print("you quit")
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mousePos = pygame.mouse.get_pos()
-                mx = mousePos[0]
-                my = mousePos[1]
-                if yes_b.collidepoint(mx, my):
-                    gameOver=False
-                    ticktack()
-                    #make it loop game but still keep score 
-                if no_b.collidepoint(mx,my):
-            
-                    finalScreen()
-                    #add the final game winner 
-            
-def finalScreen():
-    screen.fill(colors.get("white"))
-    gameoversc = TITLE_FONT.render("WINNER!", 1, colors.get("BLACK"))
-    xd = WIDTH//2 - (gameoversc.get_width()//2)
-    screen.blit(gameoversc, (xd, 100))\
-    
-    
-
-    if X_score>O_score:
-         finalEnd = GAMEOVER_FONT.render("X", 1, colors.get("BLACK"))
-         screen.blit(finalEnd, (WIDTH//2 - (finalEnd.get_width()//2),150))
-
-    if X_score<O_score:
-         finalEnd = GAMEOVER_FONT.render("O", 1, colors.get("BLACK"))
-         screen.blit(finalEnd, (WIDTH//2 - (finalEnd.get_width()//2),150))
-    
-    pygame.display.update()
-    pygame.time.delay(5000)
-    pygame.quit()
-    sys.exit()
-
-
-
-def ticktack():
-    global player, gameOver, markers
-    while True:
-        Game=True
-        gameOver=False
-        markers=[]
-        zero_Array()
-        while Game:
-            screen.fill(backgrnd)
-            draw_grid()
-            draw_Markers()
-            for event in pygame.event.get():
-                if event.type==pygame.QUIT:
-                    #Menu(mainTitle,messageMenu)
-                    pygame.quit()
-                    sys.exit()
-                    print("You quit")
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    MxMy = pygame.mouse.get_pos()
-                    cellx=MxMy[0]//(WIDTH//3)
-                    celly=MxMy[1]//(HEIGHT//3)
-                    # print(cellx, celly)
-                    if markers[cellx][celly]==0:
-                        markers[cellx][celly]=player
-                        player *=-1
-                        checkWinner()
-                        print(winner)
-                        if gameOver: #blean
-                            Game=False
-                            gameEnd()
-                            
-                        
-
-
-
-#this is my call to the menu function which runs my whole game 
-# menu()
-name()
 
 
 
@@ -1220,33 +777,4 @@ name()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+menu()
