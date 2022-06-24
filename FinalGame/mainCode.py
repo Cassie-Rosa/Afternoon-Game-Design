@@ -19,8 +19,6 @@
     # The final game should work and the window closes when you exit (40%)
 
 
-
-
 from ast import NamedExpr
 from tkinter import Menu
 import pygame, os, random, math, datetime, time, sys
@@ -629,7 +627,7 @@ clr = colors.get("white")
 pick=colors.get("white")  #use pick for settings so can change background color
 #create a display
 screen = pygame.display.set_mode( (WIDTH, HEIGHT))
-pygame.display.set_caption("Game Title") # title of the window
+pygame.display.set_caption("The Perfect Face") # title of the window
 
 def name():#this will create the screen for the user to write there name 
     screen.fill(colors.get("white"))
@@ -733,13 +731,15 @@ def menu(): #this will be the main menu function that calls for all of the other
                 
                 if game2_button.collidepoint(mx, my):
                     game1("FinalGame\\artwork\\boy-transp.png","FinalGame\\artwork\\boy-skin.png","FinalGame\\artwork\\boy-shirt.png","FinalGame\\artwork\\boy-hair.png","FinalGame\\artwork\\boy-nose.png","FinalGame\\artwork\\boy-eyes-removebg-preview.png",2 )   
+                
+                if game3_button.collidepoint(mx, my):
+                    game1("FinalGame\\artwork\\alien-transp.png","FinalGame\\artwork\\alien-skin.png", "FinalGame\\artwork\\alien-shirt.png","FinalGame\\artwork\\alien-hair.png", "FinalGame\\artwork\\alien-nose.png","FinalGame\\artwork\\alien-eyes.png",3 )
 
                 if exit_button.collidepoint(mx, my):
                     exit()
 
 def readfile(title, fileName): #this will have both the instructions and the score board  
-
-    screen.fill(colors.get("white"))
+    screen.fill(pick)
     scoreb = TITLE_FONT.render(title, 1, colors.get("black")) #use the word "title" so that I can call for different titles depending on which button is pressed
     xd = WIDTH//2 - (scoreb.get_width()//2)
     screen.blit(scoreb, (xd, 50))\
@@ -765,7 +765,7 @@ def readfile(title, fileName): #this will have both the instructions and the sco
 
 def exit(): #this will create and exit screen and append the new users score
     #This is where make a exit screen "thanks for playing"
-    screen.fill(colors.get("white"))
+    screen.fill(pick)
     exitT = TITLE_FONT.render("Thank you for playing!", 1, colors.get("black"))
     xd = WIDTH//2 - (exitT.get_width()//2)
     screen.blit(exitT, (xd, 300))\
@@ -781,7 +781,9 @@ def exit(): #this will create and exit screen and append the new users score
 
 
 def setting(): #this will let user change there screen size and their menu background color 
-    screen.fill(colors.get("white"))
+    global pick
+    screen.fill(pick)
+    pygame.display.update()
     setscreen = TITLE_FONT.render("Setting", 1, colors.get("black"))
     xd = WIDTH//2 - (setscreen.get_width()//2)
     screen.blit(setscreen, (xd, 100))
@@ -903,6 +905,13 @@ def game1(background,SKIN, SHIRT, HAIR, NOSE, EYE, choice):#this will play the g
         hairBox.y=170
         noseBox.y=250
         eyeBox.y=220
+    
+    if choice ==3:
+        skinBox.y= 180
+        shirtBox.y=300
+        hairBox.y=130
+        noseBox.y=280
+        eyeBox.y=230
 
     # bgskinBox=skin.get_rect()
     # bgshirtBox=skin.get_rect()
@@ -921,6 +930,8 @@ def game1(background,SKIN, SHIRT, HAIR, NOSE, EYE, choice):#this will play the g
             screen.fill((255,246,175))
         if choice==2:
             screen.fill((146,216,145))
+        if choice==3:
+            screen.fill((187,231,246))
 
         screen.blit(bg, (100,5)) 
 
@@ -961,7 +972,8 @@ def game1(background,SKIN, SHIRT, HAIR, NOSE, EYE, choice):#this will play the g
 
 
 def endscreen(): #this is going to be a screen that shows up after you play a game and finish it-- will show score and take you back to menu
-    screen.fill(colors.get("white"))
+    global pick 
+    screen.fill(pick)
     gameoversc = TITLE_FONT.render("Your score:", 1, colors.get("BLACK"))
     xd = WIDTH//2 - (gameoversc.get_width()//2)
     screen.blit(gameoversc, (xd, 100))\
