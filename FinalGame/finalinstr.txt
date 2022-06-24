@@ -5,3 +5,4 @@
                      try and get cloesest to the original image
                                 higher score the better!
                 play both games to unlock a secret charecter
+                       use the x button on top right to exit 

@@ -2,15 +2,15 @@
 # #this is my final game ---im doing a make the perfect face game 
 # #the requirements:
 # *** #clear instructions 
-#     # 2 or 3 options/levels of your game
+# *** # 2 or 3 options/levels of your game
 #     # Settings option: at least 2 options Background color, screen size if you have sounds you must have an option to turn it off
 #     # a leader board option
 #     # an exit option
-#     # You should use at least 5 different images in your game
-#     # You should have your code organized into functions and well documented (comments) 
-#     # You must use mouse events
-#     # You must use key events
-#     # Your screen should be at least 700 x 600
+# *** # You should use at least 5 different images in your game
+# *** # You should have your code organized into functions and well documented (comments) 
+# *** # You must use mouse events
+# *** # You must use key events
+#wanted square # Your screen should be at least 700 x 600
 
 # Your game will be graded as follow:
     # PseudoCode 15%
@@ -18,18 +18,17 @@
     # Code organization 25%
     # The final game should work and the window closes when you exit (40%)
 
-from dis import Instruction
-import sys
-from tkinter import W
-import pygame, os, random, math
-from datetime import datetime
-import os, datetime
+
+
+
+from tkinter import Menu
+import pygame, os, random, math, datetime, time, sys
 date=datetime.datetime.now()
 
 pygame.init()
+clock=pygame.time.Clock()
 
-# print(pygame.font.get_fonts())
-# pygame.time.delay(10000)
+#these are my main variables in my game
 TITLE_FONT = pygame.font.SysFont('comicsans', 40)
 MENU_FONT = pygame.font.SysFont('comicsans', 20)
 
@@ -37,6 +36,9 @@ os.system('cls')
 
 WIDTH = 700#amount of pixels
 HEIGHT = 700
+Right = True
+
+
 
 colors = {"white":(255,255,255), "grey":(96,96,96), "black":(0,0,0), "BLACK":(0,0,0), "red":(255,0,0), "green":(0,255,0), "blue":(0,0,255), "pink":(204,0,204), "orange":(255,128,0), "yellow":(255,255,0), "purple":(127,0,255),
 "RED" : (255, 0, 0),
@@ -623,9 +625,9 @@ colors = {"white":(255,255,255), "grey":(96,96,96), "black":(0,0,0), "BLACK":(0,
 "QUARTZ" : (217, 217, 243),
 }
 clr = colors.get("white")
-
+pick=colors.get("white")  #use pick for settings so can change background color
 #create a display
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode( (WIDTH, HEIGHT))
 pygame.display.set_caption("Game Title") # title of the window
 
 def name():#this will create the screen for the user to write there name 
@@ -644,7 +646,6 @@ def name():#this will create the screen for the user to write there name
         pygame.display.update()
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
-                #Menu(mainTitle,messageMenu)
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -655,23 +656,24 @@ def name():#this will create the screen for the user to write there name
                 if event.key==pygame.K_BACKSPACE: #this just makes backspace work
                     user_name=user_name[:-1]
                 else:
-                    user_name+=event.unicode #dont understand this peice 
+                    user_name+=event.unicode  
             pygame.draw.rect(screen, boxClr, input_rect) 
             
             text_surface = MENU_FONT.render(user_name, True, nameClr)
             #use your x,y
             screen.blit(text_surface,(input_rect.x+5,input_rect.y+5))
 
-            pygame.display.flip() #what does flip do? 
+            pygame.display.flip()
 
 
 def menu(): #this will be the main menu function that calls for all of the other function
-    screen.fill(colors.get("white"))
-    menu = TITLE_FONT.render("Game title", 1, colors.get("black"))
+    
+    screen.fill(pick)
+    menu = TITLE_FONT.render("The Perfect Face", 1, colors.get("black"))
     xd = WIDTH//2 - (menu.get_width()//2)
     screen.blit(menu, (xd, 100))
 
-    inst_button = pygame.Rect(WIDTH//2.5,200, 150, 50)
+    inst_button = pygame.Rect(WIDTH//2.5,200, 150, 50) #these are the button rectangle on the main menu
     setting_button = pygame.Rect(WIDTH//2.5,270, 150, 50)
     game1_button = pygame.Rect(WIDTH//2.5,340, 150, 50)
     game2_button = pygame.Rect(WIDTH//2.5,410, 150, 50)
@@ -679,15 +681,15 @@ def menu(): #this will be the main menu function that calls for all of the other
     exit_button = pygame.Rect(WIDTH//2.5,550, 150, 50)
     game3_button = pygame.Rect(WIDTH//2.5,620, 150, 50)
 
-    pygame.draw.rect(screen, colors.get("red"), inst_button) #im going to change colors to pastel 
+    pygame.draw.rect(screen, colors.get("red"), inst_button) #this adds color and draws the actual rectangle 
     pygame.draw.rect(screen, colors.get("orange"), setting_button)
     pygame.draw.rect(screen, colors.get("yellow"), game1_button)
     pygame.draw.rect(screen, colors.get("green"), game2_button)
     pygame.draw.rect(screen, colors.get("blue"), scoreboard_button)
     pygame.draw.rect(screen, colors.get("purple"), exit_button)
-    pygame.draw.rect(screen, colors.get("GREY"), game3_button) #this one i want to be grey until you play the other two
+    pygame.draw.rect(screen, colors.get("GREY"), game3_button) #this one i want to be grey until you play the other two then will become rainbow?
 
-    text_inst = MENU_FONT.render("Instructions", 1, colors.get("black"))
+    text_inst = MENU_FONT.render("Instructions", 1, colors.get("black"))#this creates the text for each of the buttons
     text_set = MENU_FONT.render("Settings", 1, colors.get("black"))
     text_g1 = MENU_FONT.render("Alex", 1, colors.get("black"))
     text_g2 = MENU_FONT.render("Ryan", 1, colors.get("black"))
@@ -695,7 +697,7 @@ def menu(): #this will be the main menu function that calls for all of the other
     text_exit = MENU_FONT.render("Exit", 1, colors.get("black"))
     text_mystery = MENU_FONT.render("MYSTERY", 1, colors.get("black"))
 
-    screen.blit(text_inst, (WIDTH//2.5+15, 210)) 
+    screen.blit(text_inst, (WIDTH//2.5+15, 210)) #this buts the text on the screen 
     screen.blit(text_set, (WIDTH//2.5+15, 280)) 
     screen.blit(text_g1, (WIDTH//2.5+15, 350)) 
     screen.blit(text_g2, (WIDTH//2.5+15, 420)) 
@@ -706,8 +708,8 @@ def menu(): #this will be the main menu function that calls for all of the other
 
     pygame.display.update()
 
-    while True:
-        # global Game
+    while True: #this is the main game loop where it calls for all of the different functions
+       
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 pygame.quit()
@@ -719,21 +721,29 @@ def menu(): #this will be the main menu function that calls for all of the other
                 if inst_button.collidepoint(mx, my):
                     readfile("Instruction","FinalGame\\finalinstr.txt")
 
+                if setting_button.collidepoint(mx, my):
+                    setting()
+                    
                 if scoreboard_button.collidepoint(mx, my):
                     readfile("Score Board","FinalGame\\finalScoreb.txt")
 
                 if game1_button.collidepoint(mx, my):
-                    game1("FinalGame\\artwork\girl-transp.png")
-                    
+                    game1("FinalGame\\artwork\girl-transp.png","FinalGame\\artwork\girl-skin.png","FinalGame\\artwork\girl-shirt.png","FinalGame\\artwork\girl-hair.png","FinalGame\\artwork\girl-nose.png","FinalGame\\artwork\girl-eyes.png", 1 )
+                
+                if game2_button.collidepoint(mx, my):
+                    game1("FinalGame\\artwork\\boy-transp.png","FinalGame\\artwork\\boy-skin.png","FinalGame\\artwork\\boy-shirt.png","FinalGame\\artwork\\boy-hair.png","FinalGame\\artwork\\boy-nose.png","FinalGame\\artwork\\boy-eyes-removebg-preview.png",2 )   
 
-def readfile(title, fileName): #this will have both the instructions and the score board 
+                if exit_button.collidepoint(mx, my):
+                    exit()
+
+def readfile(title, fileName): #this will have both the instructions and the score board  
 
     screen.fill(colors.get("white"))
-    scoreb = TITLE_FONT.render(title, 1, colors.get("black"))
+    scoreb = TITLE_FONT.render(title, 1, colors.get("black")) #use the word "title" so that I can call for different titles depending on which button is pressed
     xd = WIDTH//2 - (scoreb.get_width()//2)
     screen.blit(scoreb, (xd, 50))\
 
-    myFile = open(fileName, "r")
+    myFile = open(fileName, "r") #fileName is variable to use in main game loop to change which file is shown 
     content = myFile.readlines()
 
     #print the score 
@@ -745,7 +755,7 @@ def readfile(title, fileName): #this will have both the instructions and the sco
         pygame.time.delay(50)
         yi += 40
 
-    while True:
+    while True: #this will bring user back to menu when press x 
         # global Game
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -753,44 +763,214 @@ def readfile(title, fileName): #this will have both the instructions and the sco
 
 
 def exit(): #this will create and exit screen and append the new users score
-    user_name= ''
     #This is where make a exit screen "thanks for playing"
     screen.fill(colors.get("white"))
     exitT = TITLE_FONT.render("Thank you for playing!", 1, colors.get("black"))
     xd = WIDTH//2 - (exitT.get_width()//2)
     screen.blit(exitT, (xd, 300))\
-    #trying to make it delay and stay on screen for like 5 seconds and then closing 
+     
     pygame.display.update()
-    pygame.time.delay(1000)
-
-#need to create a scoreing system 
+    pygame.time.delay(1000) #this will keep the screen for enough time for user to read and then it will close 
+# user_name= ''
+#this will add the users score to the leaderboard 
     # scrline=str(cnt)+"\t "+ user_name +"\t" +date.strftime("%m / %d / %y")+ "\n "
     # myFile=open("FinalGame\\finalScoreb.txt", 'a')
     # myFile.write(scrline)
     # myFile.close()
 
-def game1(background):#this will play the game then input which charecter i will be using
-    run = True
+
+def setting(): #this will let user change there screen size and their menu background color 
+    screen.fill(colors.get("white"))
+    setscreen = TITLE_FONT.render("Setting", 1, colors.get("black"))
+    xd = WIDTH//2 - (setscreen.get_width()//2)
+    screen.blit(setscreen, (xd, 100))
+
+    color1_button = pygame.Rect(WIDTH//2.5,200, 150, 50)
+    color2_button = pygame.Rect(WIDTH//2.5,270, 150, 50)
+    color3_button = pygame.Rect(WIDTH//2.5,340, 150, 50)  
+    pygame.draw.rect(screen, colors.get("white"), color1_button) 
+    pygame.draw.rect(screen, (204,229,255), color2_button)
+    pygame.draw.rect(screen, (255,255,204), color3_button)  
+    text_color1 = MENU_FONT.render("white", 1, colors.get("black"))
+    text_color2 = MENU_FONT.render("blue", 1, colors.get("black"))
+    text_color3 = MENU_FONT.render("yellow", 1, colors.get("black"))
+    screen.blit(text_color1, (WIDTH//2.5+15, 210)) 
+    screen.blit(text_color2, (WIDTH//2.5+15, 280)) 
+    screen.blit(text_color3, (WIDTH//2.5+15, 350)) 
+
+
+    # Button_small= pygame.Rect(Bx, 150, WIDTH//4, 40)
+    # Button_big= pygame.Rect(Bx, 250, WIDTH//4, 40)
+    # pygame.draw.rect(screen, colors.get("blue"), Button_small)
+    # pygame.draw.rect(screen, colors.get("blue"), Button_big)
+    # screensize_1=MENU_FONT.render('smaller screen', 1, colors.get('white'))
+    # screensize_2=MENU_FONT.render('bigger screen', 1, colors.get('white'))
+    # screen.blit(screensize_1, (Bx, 150,))
+    # screen.blit(screensize_2,(Bx, 250))
+    # pygame.display.update()
+
+    while True: #this will make it so that if they click on the buttons the background will change once back in menu 
+        # global pick 
+        # global WIDTH, HEIGHT 
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                menu()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mousePos = pygame.mouse.get_pos()
+                mx = mousePos[0]
+                my = mousePos[1]
+                if color1_button.collidepoint(mx, my):
+                    pick=colors.get("white")
+
+                if color2_button.collidepoint(mx, my):
+                    pick=(204,229,255)
+                
+                if color3_button.collidepoint(mx, my):
+                    pick=(255,255,204)
+
+        #         if Button_small.collidepoint((mx,my)):
+        #             WIDTH*=.5
+        #             HEIGHT*=.5
+        #         pygame.display.update()
+        #         screen=pygame.display.set_mode((int(WIDTH),int(HEIGHT)))
+        #     if Button_big.collidepoint((mx,my)):
+        #         WIDTH*=2
+        #         HEIGHT*=2
+        #         pygame.display.update()
+        #         screen=pygame.display.set_mode((int(WIDTH),int(HEIGHT)))
+        pygame.display.update()
+
+    
+    
+
+
+def game1(background,SKIN, SHIRT, HAIR, NOSE, EYE, choice):#this will play the game then input which charecter i will be using eye, nose, neck, shirt, hair,num
+    run = True 
+
+#this is all of the images for the face- each peice adn the background 
+    bg=pygame.image.load (background)
+    bg=pygame.transform.scale(bg, (WIDTH-210,HEIGHT-90))
+    
+    skin=pygame.image.load(SKIN)
+    skinBox=skin.get_rect()
+    skinBox.x=-100
+  
+    shirt=pygame.image.load(SHIRT)
+    shirtBox=skin.get_rect()
+    shirtBox.x=-50
+    
+    hair=pygame.image.load(HAIR)
+    hairBox=skin.get_rect()
+    hairBox.x=-50
+   
+    nose=pygame.image.load(NOSE)
+    noseBox=skin.get_rect()
+    noseBox.x=-50
+
+    eye=pygame.image.load(EYE)
+    eyeBox=eye.get_rect()
+    eyeBox.x=-50
+    
+    partlist=[skin, shirt,hair,nose,eye] 
+    rectlist=[skinBox,shirtBox, hairBox, noseBox, eyeBox]
+    # bgHitBox=[bgskinBox,bgshirtBox,bghairBox,bgnoseBox,bgeyeBox]
+
+    rect=pygame.Rect(0,0,0,0)
+
+   
+    def movepart(rect):
+        global Right 
+
+        if Right:  
+            if rect.x <WIDTH-200:
+                rect.x+=5
+            else: 
+                Right=False
+        else: 
+            if rect.x > 0:
+                rect.x -=5
+            else:
+                Right=True
+#these are the all of the y values for each body part and they are altered for each charecter-- I call for this in the funtion in ()             
+    if choice ==1:
+        skinBox.y= 250
+        shirtBox.y=350
+        hairBox.y=160
+        noseBox.y=277
+        eyeBox.y=255
+    
+    if choice ==2:
+        skinBox.y= 230
+        shirtBox.y=330
+        hairBox.y=170
+        noseBox.y=250
+        eyeBox.y=220
+
+    # bgskinBox=skin.get_rect()
+    # bgshirtBox=skin.get_rect()
+    # bghairBox=skin.get_rect()
+    # bgnoseBox=skin.get_rect()
+    # bgeyeBox=eye.get_rect()
+
+    counter=0
+    SPACE=False
 
     while run:
-        # screen.fill(background)
-        # pygame.draw.rect(screen, colors.get("white"), mountainSquare) use something like this to draw the hit points
-       
-        screen.blit(background, (0,0)) #****************need to make this universal so I can use for both person and another shape
-        for event in pygame.event.get():
+        clock.tick(60) #this is speed of the moving peices 
+        
+    #this will also change the background color depening on which charecter was picked 
+        if choice==1:
+            screen.fill((255,246,175))
+        if choice==2:
+            screen.fill((146,216,145))
+
+        screen.blit(bg, (100,5)) 
+
+        for event in pygame.event.get(): #this takes you back to main menu if press x
             if event.type == pygame.QUIT:
                 menu()
+    #this makes it so that if you press space that he body parts stop moving in the spot you pressed 
+            if event.type==pygame.KEYDOWN:
+                if event.key== pygame.K_SPACE:
+                    SPACE=True 
+        check=True
+        if check and counter !=5:
+            movepart(rectlist[counter])
+            screen.blit(partlist[counter],rectlist[counter])
+            if SPACE:
+                check=False
+                counter+=1
+                SPACE=False
+        
+        for i in range(counter):
+            screen.blit(partlist[i],rectlist[i])
+            check=True
 
-    #now need to make it so that all of the peices move back and forth with out stopping
-    #maybe can type same code just make the image and placement a varibale 
+        # this is where will input scoring system 
+        # if skinBox.x 
+        for event in pygame.event.get():  
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mousePos = pygame.mouse.get_pos()
+                    mx = mousePos[0]
+                    my = mousePos[1]
+                    print(mx,my)
+        #this is going to make it so that once play all parts that it pops up a score screen and give option to go back to main menu 
+        if counter >=5:
+            pygame.time.delay(5000)
+            endscreen()
+
+        pygame.display.update()
 
 
-
-
-
-
-
-
-
-
+def endscreen(): #this is going to be a screen that shows up after you play a game and finish it-- will show score and take you back to menu
+    screen.fill(colors.get("white"))
+    gameoversc = TITLE_FONT.render("Your score:", 1, colors.get("BLACK"))
+    xd = WIDTH//2 - (gameoversc.get_width()//2)
+    screen.blit(gameoversc, (xd, 100))\
+    
+    for event in pygame.event.get(): #this takes you back to main menu if press x
+            if event.type == pygame.QUIT:
+                menu()
+    
+    # score= 
 menu()
