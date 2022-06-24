@@ -21,6 +21,7 @@
 
 
 
+from ast import NamedExpr
 from tkinter import Menu
 import pygame, os, random, math, datetime, time, sys
 date=datetime.datetime.now()
@@ -652,7 +653,7 @@ def name():#this will create the screen for the user to write there name
                 print()
             if event.type == pygame.KEYDOWN:
                 if event.key==pygame.K_RETURN:  
-                    print() #will go to menu 
+                    menu()
                 if event.key==pygame.K_BACKSPACE: #this just makes backspace work
                     user_name=user_name[:-1]
                 else:
@@ -840,9 +841,6 @@ def setting(): #this will let user change there screen size and their menu backg
         #         screen=pygame.display.set_mode((int(WIDTH),int(HEIGHT)))
         pygame.display.update()
 
-    
-    
-
 
 def game1(background,SKIN, SHIRT, HAIR, NOSE, EYE, choice):#this will play the game then input which charecter i will be using eye, nose, neck, shirt, hair,num
     run = True 
@@ -973,4 +971,4 @@ def endscreen(): #this is going to be a screen that shows up after you play a ga
                 menu()
     
     # score= 
-menu()
+name()
